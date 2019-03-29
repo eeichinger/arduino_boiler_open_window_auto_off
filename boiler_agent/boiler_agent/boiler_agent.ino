@@ -20,6 +20,7 @@ void setup() {
   radio.setPALevel(RF24_PA_MIN);
   radio.startListening();
 }
+
 void loop() {
   if (radio.available()) {
     char text[32] = "";
