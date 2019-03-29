@@ -33,7 +33,6 @@ void loop() {
   if (proximity == LOW) // If the pin reads low, the switch is closed.
   {
 //    Serial.println("Switch closed");
-//    digitalWrite(LED_PIN, HIGH); // Turn the LED on
     radio.write(&CMD_CLOSED, sizeof(CMD_CLOSED));
   }
   else
