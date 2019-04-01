@@ -20,29 +20,32 @@ const char CMD_OPEN[] = "OPEN";
 const char CMD_CLOSED[] = "CLOSED";
 
 void setup() {
+  Serial.begin(9600);
   pinMode(REED_PIN, INPUT_PULLUP);
 
   radio.begin();
   radio.openWritingPipe(address);
-  radio.setPALevel(RF24_PA_MIN);
+  radio.setPALevel(RF24_PA_LOW);
   radio.stopListening();
 }
 
 void loop() {
- int proximity = digitalRead(REED_PIN); // Read the state of the switch
-  if (proximity == LOW) // If the pin reads low, the switch is closed.
+  int proximity = digitalRead(REED_PIN); // Read the state of the switch
+  Serial.print("reading switch: ");
+  if (proximity == HIGH) // If the pin reads low, the switch is closed.
   {
-//    Serial.println("Switch closed");
+    Serial.println("closed");
     radio.write(&CMD_CLOSED, sizeof(CMD_CLOSED));
   }
   else
   {
-//    digitalWrite(LED_PIN, LOW); // Turn the LED off
+    Serial.println("open");
     radio.write(&CMD_OPEN, sizeof(CMD_OPEN));
+//    digitalWrite(LED_PIN, LOW); // Turn the LED off
   }  
 //  radio.write(&text, sizeof(text));
 //  delay(1000);
 //  const char text[] = "CLOSED";
 //  radio.write(&text, sizeof(text));
-  delay(200);
+  delay(500);
 }
