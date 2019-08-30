@@ -28,7 +28,7 @@ const char CMD_OPEN[] = "OPEN";
 const char CMD_CLOSED[] = "CLOSED";
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(19200);
   pinMode(REED_PIN, INPUT_PULLUP); // set NO reed pin to HIGH by default, only if the switch triggers it will go LOW.
   pinMode(BUZZER_PIN, OUTPUT); // acoustic signal
   digitalWrite(RELAY_PIN, LOW);
