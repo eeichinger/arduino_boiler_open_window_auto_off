@@ -11,12 +11,12 @@
 #include <RF24.h>
 
 #define NOTE_C5  523
-const int BUZZER_PIN = 8;
+const int BUZZER_PIN = 9;
 
 RF24 radio(6, 7); // CE, CSN
 const byte address[6] = "00001";
 const int RELAY_PIN = 2; 
-const int LED_PIN = 13;
+const int LED_PIN = 8;
 const char CMD_OPEN[] = "OPEN";
 const char CMD_CLOSED[] = "CLOSED";
 const unsigned long last_message_timeout = 5000;
@@ -31,10 +31,11 @@ void setup() {
   pinMode(RELAY_PIN, OUTPUT);
   digitalWrite(RELAY_PIN, HIGH); 
     
-  Serial.begin(9600);
+  Serial.begin(19200);
   radio.begin();
+  radio.setDataRate(RF24_250KBPS);
   radio.openReadingPipe(0, address);
-  radio.setPALevel(RF24_PA_MAX);
+  radio.setPALevel(RF24_PA_HIGH);
   radio.startListening();
 }
 
@@ -71,5 +72,5 @@ void loop() {
   }
   digitalWrite(LED_PIN, LOW);
   Serial.flush();
-  delay(1000);
+  delay(200);
 }
